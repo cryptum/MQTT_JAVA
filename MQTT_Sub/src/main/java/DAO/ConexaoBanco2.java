@@ -7,54 +7,55 @@ import java.sql.SQLException;
 public class ConexaoBanco2{ 
 
 public static String status = "Não conectou...";
-      public ConexaoBanco2() {
-  }
+
+public ConexaoBanco2() {}
       
 public static java.sql.Connection getConexaoMySQL() {
-      Connection connection = null;
+    Connection connection = null;
+    
     try {
-    String driverName = "com.mysql.cj.jdbc.Driver";
-    Class.forName(driverName);
-              String serverName = "localhost";
-              String mydatabase ="livraria2";
-              String port ="3306";
-              String aux = "?useTimezone=true&serverTimezone=UTC&autoReconnect=true&useSSL=false";
-              String url = "jdbc:mysql://"+serverName+":"+port +"/" +mydatabase+aux;
-              String username = "root";      
-              String password = "";
-              connection = DriverManager.getConnection(url, username, password);
+        String driverName = "com.mysql.cj.jdbc.Driver";
+        Class.forName(driverName);
+        String serverName = "localhost";
+        String mydatabase ="livraria2";
+        String port ="3306";
+        String aux = "?useTimezone=true&serverTimezone=UTC&autoReconnect=true&useSSL=false";
+        String url = "jdbc:mysql://"+serverName+":"+port +"/" +mydatabase+aux;
+        String username = "root";      
+        String password = "";
+        connection = DriverManager.getConnection(url, username, password);
 
-              if (connection != null) {
-                  status = ("STATUS--->Conectado com sucesso!");
-              } else {
-                  status = ("STATUS--->Não foi possivel realizar conexão");
-              }
-              return connection;
-          } catch (ClassNotFoundException e) {
+        if (connection != null) {
+            status = ("STATUS--->Conectado com sucesso!");
+        } else {
+            status = ("STATUS--->Não foi possivel realizar conexão");
+        }
+        return connection;
+    } catch (ClassNotFoundException e) {
 
-              System.out.println("O driver expecificado nao foi encontrado.");
-              return null;
-          } catch (SQLException e) {
-              System.out.println("Nao foi possivel conectar ao Banco de Dados.");
-              return null;
+        System.out.println("O driver expecificado nao foi encontrado.");
+        return null;
+    } catch (SQLException e) {
+        System.out.println("Nao foi possivel conectar ao Banco de Dados.");
+        return null;
     }
 }
 
-  public static String statusConection() {
-      return status;
-  }
+    public static String statusConection() {
+        return status;
+    }
 
-public static boolean FecharConexao() {
-      try {
-    	  ConexaoBanco1.getConexaoMySQL().close();
-          return true;
-      } catch (SQLException e) {
-          return false;
-      }
-  } 
+    public static boolean FecharConexao() {
+        try {
+            ConexaoBanco1.getConexaoMySQL().close();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    } 
 
-public static java.sql.Connection ReiniciarConexao() {
-      FecharConexao();
-      return ConexaoBanco1.getConexaoMySQL();
-  }
+    public static java.sql.Connection ReiniciarConexao() {
+        FecharConexao();
+        return ConexaoBanco1.getConexaoMySQL();
+    }
 }

@@ -1,6 +1,5 @@
 package DAO;
 
-
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
@@ -16,6 +15,7 @@ public class LivroDao {
 public boolean InserirLivro(LivroM liv) {
     
     String SQL = "INSERT INTO livraria2.livro values (?, ?, ?, ?, ?)"; 
+    
     try {
             PreparedStatement pst = ConexaoBanco2.getConexaoMySQL().prepareStatement(SQL);
 
@@ -30,37 +30,37 @@ public boolean InserirLivro(LivroM liv) {
             System.out.println("Erro: " + ex.getMessage());
             return false;
     }
-    return false;	
-    }
-
+        return false;	
+}
 
     @SuppressWarnings("static-access")
-    public void busca(LivroM livro) {
-            String SQL = "SELECT * FROM livraria.livro WHERE id = ?";
+    
+    public void busca(LivroM livro){
+        String SQL = "SELECT * FROM livraria.livro WHERE id = ?";
 
-            try {
-                    PreparedStatement stmt = ConexaoBanco1.getConexaoMySQL().prepareStatement(SQL);
-                    stmt.setInt(1, livro.getId());
-                    ResultSet result = stmt.executeQuery();
+        try {
+            PreparedStatement stmt = ConexaoBanco1.getConexaoMySQL().prepareStatement(SQL);
+            stmt.setInt(1, livro.getId());
+            ResultSet result = stmt.executeQuery();
 
-                    if (result.next()) {
-                            LivroM liv = new LivroM();
+            if (result.next()) {
+                    LivroM liv = new LivroM();
 
-                            liv.setId(result.getInt("id"));
-                            liv.setAutor(result.getString("autor"));
-                            liv.setAno(result.getInt("ano"));
-                            liv.setTitulo(result.getString("titulo"));
-                            liv.setGenero(result.getString("genero"));
+                    liv.setId(result.getInt("id"));
+                    liv.setAutor(result.getString("autor"));
+                    liv.setAno(result.getInt("ano"));
+                    liv.setTitulo(result.getString("titulo"));
+                    liv.setGenero(result.getString("genero"));
 
-                            InserirLivro(liv);
+                    InserirLivro(liv);
 
-                    }else {
-                            System.out.println("Nenhum registro encontrado!");
-                    }
-
-            } catch(SQLException ex) {
-                    System.out.println("Erro: " + ex.getMessage());
+            }else {
+                    System.out.println("Nenhum registro encontrado!");
             }
+
+        } catch(SQLException ex) {
+                System.out.println("Erro: " + ex.getMessage());
+        }
 
     }
 }
