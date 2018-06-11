@@ -44,7 +44,6 @@ public boolean InserirLivro(LivroM liv) {
                     ResultSet result = stmt.executeQuery();
 
                     if (result.next()) {
-                            System.out.println("Entrou no buscador");
                             LivroM liv = new LivroM();
 
                             liv.setId(result.getInt("id"));
@@ -56,7 +55,7 @@ public boolean InserirLivro(LivroM liv) {
                             InserirLivro(liv);
 
                     }else {
-                            System.out.println("Saiu do buscador sem nada!");
+                            System.out.println("Nenhum registro encontrado!");
                     }
 
             } catch(SQLException ex) {
